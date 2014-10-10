@@ -1,0 +1,120 @@
+﻿<!doctype html>
+<html lang="en">
+<!--
+            .---._------------------------------+
+___________/ ._____)                            |
+              ) __|          WELCOME TO         |
+                __|  http://gauss.nfshost.com/  |
+..---------.._____|                             |
+                  +-----------------------------+
+
+WelcomeMat.co-->
+<head>
+	<meta charset="utf-8" />
+	<title>Preračunavanje GPS koordinata u Gauss–Krüger</title>
+	<link rel="icon" type="image/x-icon" href="favicon.ico" sizes="16x16" />
+	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" sizes="16x16" />
+	<link href="style.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="openlayers/OpenLayers.js"></script>
+	<script type="text/javascript" src="proj4js/proj4js.js"></script>
+	<script type="text/javascript" src="proj4js/defs/EPSG900913.js"></script>
+	<script type="text/javascript" src="proj4js/defs/EPSG4326.js"></script>
+	<script type="text/javascript" src="proj4js/defs/EPSG3765.js"></script>
+	<script type="text/javascript" src="proj4js/defs/EPSG31275.js"></script>
+	<script type="text/javascript" src="proj4js/defs/EPSG31276.js"></script>
+	<script type="text/javascript" src="js/prototype.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+	<link href="http://fonts.googleapis.com/css?family=Dosis:500&subset=latin,latin-ext" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<div id="map"></div>
+	<div id="tools" class="transparent">
+		<p class="desno"><img src="images/info.png" alt="info" title="Pomoć" id="infoImg" /></p>
+		<p class="fakeLink" id="oneCoordLink"><img src="images/one_coord.png" alt="onecoordinate" title="Preračunaj jednu koordinatu" id="oneCoordImg" /> Preračunaj jednu koordinatu</p>
+		<p class="fakeLink" id="uploadLink"><img src="images/upload.png" alt="upload" title="Učitaj datoteku s koordinatama" id="uploadImg" /> Učitaj datoteku s koordinatama</p>
+		<div id="oneCoord">
+			<br />
+			<p>
+				<input name="srcCoord" id="srcCoord" type="text" value="Primjer: 45.16,16.45" />
+				<img src="images/transform.png" alt="transform" title="Preračunaj" id="transformImg" />
+			</p>
+			<p>
+				<table>
+					<tbody>
+						<tr>
+							<td class="srcTD"><span id="srcCS"></span></td>
+							<td class="toTD"></td>
+							<td class="dstTD"><span id="dstCS">HTRS96</span></td>
+						</tr>
+						<tr>
+							<td><span id="srcCoord1"></span></td>
+							<td><img src="images/arrow.png" alt="to" class="toImg" /></td>
+							<td><span id="dstCoord1">Y = </span></td>
+						</tr>
+						<tr>
+							<td><span id="srcCoord2"></span><br /></td>
+							<td></td>
+							<td><span id="dstCoord2">X = </span><br /></td>
+						</tr>
+					</tbody>
+				</table>
+			</p>
+		</div>
+		<div id="upload">
+			<br />
+			<input type="file" id="files" name="files[]" /> <span class="sredina">Format: csv ili gpx</span>
+			<br />
+			<output id="list"></output>
+			<a class="desno" href="/" id="downloadCSV"><img src="images/download.png" alt="download" title="Export preračunatih koordinata u CSV" id="downloadImg" /></a>
+		</div>
+		<div id="coordSystem">
+			<img src="images/arrow.png" alt="to" class="toImg" />
+			<select id="dstCoord"><option value="3765">HTRS96</option><option value="31275">GK5</option><option value="31276">GK6</option><option value="4326">WGS84</option></select>
+		</div>
+		<p class="sredina"><span id="errorMsg" class="errorMsg">&nbsp;</span></p>
+		<div id="settings">
+			<br />
+			<p><img src="images/map_on.png" alt="map" id="mapImg" /> Prikaži na karti izračunatu koordinatu</p>
+			<p><img src="images/center_off.png" alt="center" id="centerImg" /> Centriraj kartu na izračunatu koordinatu</p>
+			<br />
+			<p><img src="images/reset.png" alt="reset" id="resetImg" /> Resetiraj sve i obriši kartu</p>
+		</div>
+		<p class="desno">
+			<img src="images/settings.png" alt="settings" title="Postavke" id="settingsImg" />
+		</p>
+	</div>
+	<div id="info" class="transparent spaces">
+		<p class="sredina">Preračunavanje GPS koordinata u Gauss–Krüger</p>
+		<br />
+		<p>Podržani koordinatni sustavi za preračunavanje koordinata:
+		<ul>
+			<li>HTRS96/TM</li>
+			<li>Gauss–Krüger 5 zona</li>
+			<li>Gauss–Krüger 6 zona</li>
+			<li>WGS84</li>
+		</ul>
+		</p>
+		<p>Program automatski prepoznaje polazni koordinatni sustav na temelju unešenih koordinata.</p>
+		<p>Unešene koordinate moraju imati decimalnu točku i biti odvojene zarezom.</p>
+		<p>Podržane datoteke s popisom koordinata:
+		<ul>
+			<li>CSV</li>
+			<li>GPX</li>
+		</ul>
+		U CSV datoteteci koordinate moraju imati decimalnu točku i biti odvojene zarezom.</p>
+		<br /><hr/><br />
+		<p>Sve primjedbe, pohvale, prijedloge i zahtjeve za doradom slati putem <a href="http://svemir.co/about/">kontakt forme</a><br />ili putem <a href="http://svemir.co/category/tools/">komentara na vezane članake na svemir.co</a>.</p>
+		<p>Privatnost: program ne sprema niti šalje unešene koordinate.</p>
+		<p><span id="appversion" class="desno"></span></p>
+	</div>
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-38998396-1', 'auto');
+	  ga('send', 'pageview');
+	</script> 	
+</body>
+</html>
