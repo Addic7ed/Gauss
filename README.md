@@ -21,7 +21,7 @@ After the target coordinate system in which you want your coordinate to be trans
 
 ## Changelog
 
-### v.0.9.2 
+### v0.9.2 
   * First version commited to GitHub
 
 ## License
