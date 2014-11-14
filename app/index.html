@@ -1,29 +1,25 @@
 ﻿<!doctype html>
 <html lang="en">
-<!--
-            .---._------------------------------+
-___________/ ._____)                            |
-              ) __|          WELCOME TO         |
-                __|  http://gauss.nfshost.com/  |
-..---------.._____|                             |
-                  +-----------------------------+
-
-WelcomeMat.co-->
 <head>
 	<meta charset="utf-8" />
 	<title>Preračunavanje GPS koordinata u Gauss–Krüger</title>
 	<link rel="icon" type="image/x-icon" href="favicon.ico" sizes="16x16" />
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" sizes="16x16" />
-	<link href="style.css" rel="stylesheet" type="text/css" />
+	<!-- build:css(.tmp) styles/main.css -->
+	<link href="styles/style.css" rel="stylesheet" type="text/css" />
+	<!-- endbuild -->
+
 	<script type="text/javascript" src="openlayers/OpenLayers.js"></script>
-	<script type="text/javascript" src="proj4js/proj4js.js"></script>
-	<script type="text/javascript" src="proj4js/defs/EPSG900913.js"></script>
-	<script type="text/javascript" src="proj4js/defs/EPSG4326.js"></script>
-	<script type="text/javascript" src="proj4js/defs/EPSG3765.js"></script>
-	<script type="text/javascript" src="proj4js/defs/EPSG31275.js"></script>
-	<script type="text/javascript" src="proj4js/defs/EPSG31276.js"></script>
+	<!-- build:js({.tmp,app}) js/scripts.js -->
+	<script type="text/javascript" src="js/proj4js/proj4js.js"></script>
+	<script type="text/javascript" src="js/proj4js/EPSG900913.js"></script>
+	<script type="text/javascript" src="js/proj4js/EPSG4326.js"></script>
+	<script type="text/javascript" src="js/proj4js/EPSG3765.js"></script>
+	<script type="text/javascript" src="js/proj4js/EPSG31275.js"></script>
+	<script type="text/javascript" src="js/proj4js/EPSG31276.js"></script>
 	<script type="text/javascript" src="js/prototype.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
+	<!-- endbuild -->
 	<link href="http://fonts.googleapis.com/css?family=Dosis:500&subset=latin,latin-ext" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -103,7 +99,7 @@ WelcomeMat.co-->
 		</ul>
 		U CSV datoteteci koordinate moraju imati decimalnu točku i biti odvojene zarezom.</p>
 		<br /><hr/><br />
-		<p>Sve primjedbe, pohvale, prijedloge i zahtjeve za doradom slati putem <a href="http://svemir.co/about/">kontakt forme</a><br />ili putem <a href="http://svemir.co/category/tools/">komentara na vezane članake na svemir.co</a>.</p>
+		<p>Sve primjedbe, prijedloge, ispravke i zahtjeve za doradom slati putem <a href="http://svemir.co/about/">kontakt forme</a><br />ili putem <a href="https://github.com/bacinger/Gauss">GitHub-a</a>.</p>
 		<p>Privatnost: program ne sprema niti šalje unešene koordinate.</p>
 		<p><span id="appversion" class="desno"></span></p>
 	</div>
