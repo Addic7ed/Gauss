@@ -19,7 +19,7 @@ module.exports = function(grunt) {
         }
       },
       styles: {
-        files: ['app/styles/{,*/}*.css'],
+        files: ['app/styles/*.css'],
         tasks: ['newer:copy:styles', 'autoprefixer']
       },
       gruntfile: {
@@ -31,8 +31,9 @@ module.exports = function(grunt) {
         },
         files: [
           'app/{,*/}*.html',
-          '.tmp/styles/{,*/}*.css',
-          'app/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+          '.tmp/styles/*.css',
+          'app/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+          'app/styles/images/*'
         ]
       }
     },
@@ -61,6 +62,20 @@ module.exports = function(grunt) {
           open: true,
           base: 'dist'
         }
+      }
+    },
+
+    // Make sure code styles are up to par and there are no obvious mistakes
+    jshint: {
+      options: {
+        jshintrc: '.jshintrc',
+        reporter: require('jshint-stylish')
+      },
+      all: {
+        src: [
+          'Gruntfile.js',
+          'app/js/*.js'
+        ]
       }
     },
 
@@ -202,7 +217,8 @@ module.exports = function(grunt) {
             '*.html',
             'data/*',
             'images/{,*/}*.{webp}',
-            'openlayers/{,*/}{,*/}{,*/}*'
+            'js/images/*',
+            'styles/images/*'
           ]
         }, {
           expand: true,
@@ -239,6 +255,7 @@ module.exports = function(grunt) {
     grunt.task.run([
       'clean:server',
       'autoprefixer',
+      'newer:jshint',
       'connect:livereload',
       'watch'
     ]);

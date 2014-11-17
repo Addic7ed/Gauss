@@ -19,11 +19,6 @@ The usage is simple; you enter two coordinates separated by comma and the tool w
 
 After the target coordinate system in which you want your coordinate to be transformed is selected, just press calculator button or hit enter, and your coordinate will be calculated and shown on the map. There are options to automatically zoom to the calculated coordinate, and to turn on or off display of the coordinates on the map all together. Also there is an option to switch base layer from OpenStreetMap to Digital Orthophoto that is provided by Croatian State Geodetic Administration.
 
-## Changelog
-
-### v0.9.2 
-  * First version commited to GitHub
-
 ## License
 ```
 The MIT License (MIT)

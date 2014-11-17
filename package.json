@@ -16,6 +16,7 @@
     "grunt-contrib-uglify": "latest",
     "grunt-contrib-watch": "latest",
     "grunt-filerev": "latest",
+    "grunt-newer": "latest",
     "grunt-svgmin": "latest",
     "grunt-usemin": "latest",
     "jshint-stylish": "latest",
