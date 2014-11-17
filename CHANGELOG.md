@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.0.α
+## v1.0.0
 
 - Added Grunt
 - Migrated from OpenLayers.js to Leaflet.js

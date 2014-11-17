@@ -1,6 +1,7 @@
 ﻿'use strict';
 
 /* Globals */
+var appVersion = 'v1.0.0';
 var map, sidebarH, sidebarT;
 var srcEPSG, canPerformTransformation;
 var dstEPSG = '3765';
@@ -459,7 +460,7 @@ function handleFileSelect(evt) {
 
 function pageInit() {
 	/* App version */
-	$('appversion').update('v1.0.α');
+	$('appversion').update(appVersion);
 	/* Projections */
 	proj4.defs([
 		[
