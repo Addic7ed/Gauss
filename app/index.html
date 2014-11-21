@@ -1,125 +1,125 @@
 ﻿<!doctype html>
 <html lang="en">
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Preračunavanje GPS koordinata u Gauss–Krüger</title>
-	<link rel="icon" type="image/x-icon" href="favicon.ico" sizes="16x16" />
-	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" sizes="16x16" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Preračunavanje GPS koordinata u Gauss–Krüger</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico" sizes="16x16" />
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" sizes="16x16" />
 
-	<!-- build:css(.tmp) styles/main.css -->
-	<link href="styles/style.css" rel="stylesheet" type="text/css" />
-	<link href="styles/bootstrap.css" rel="stylesheet" type="text/css" />
-	<link href="styles/leaflet.css" rel="stylesheet" type="text/css" />
-	<link href="styles/sidebar.css" rel="stylesheet" type="text/css" />
-	<!-- endbuild -->
+  <!-- build:css(.tmp) styles/main.css -->
+  <link href="styles/style.css" rel="stylesheet" type="text/css" />
+  <link href="styles/bootstrap.css" rel="stylesheet" type="text/css" />
+  <link href="styles/leaflet.css" rel="stylesheet" type="text/css" />
+  <link href="styles/sidebar.css" rel="stylesheet" type="text/css" />
+  <!-- endbuild -->
 
-	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+  <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 
-	<!-- build:js({.tmp,app}) js/scripts.js -->
-	<script type="text/javascript" src="js/sidebar.js"></script>
-	<script type="text/javascript" src="js/easy-button.js"></script>
-	<script type="text/javascript" src="js/proj4.js"></script>
-	<script type="text/javascript" src="js/prototype.js"></script>
-	<script type="text/javascript" src="js/script.js"></script>
-	<!-- endbuild -->
+  <!-- build:js({.tmp,app}) js/scripts.js -->
+  <script type="text/javascript" src="js/sidebar.js"></script>
+  <script type="text/javascript" src="js/easy-button.js"></script>
+  <script type="text/javascript" src="js/proj4.js"></script>
+  <script type="text/javascript" src="js/prototype.js"></script>
+  <script type="text/javascript" src="js/script.js"></script>
+  <!-- endbuild -->
 
-	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-	<link href="http://fonts.googleapis.com/css?family=Dosis:500&subset=latin,latin-ext" rel="stylesheet" type="text/css" />
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="http://fonts.googleapis.com/css?family=Dosis:500&subset=latin,latin-ext" rel="stylesheet" type="text/css" />
 </head>
 <body>
-	<div id="map"></div>
-	<div id="sidebarT" class="transparent">
-		<div id="transformMenu">
-			<button type="button" class="btn btn-default btn-block" id="oneCoordLink"><span class="fa fa-map-marker ikona"></span> Preračunaj jednu koordinatu</button>
-			<button type="button" class="btn btn-default btn-block" id="uploadLink"><span class="fa fa-cloud-upload ikona"></span> Učitaj datoteku s koordinatama</button>
-		</div>
-		<div id="oneCoord">
-			<div class="input-group">
-				<input name="srcCoord" id="srcCoord" type="text" class="form-control col-xs-2" placeholder="Primjer: 45.16,16.45">
-				<span class="input-group-btn">
-					<button id="buttonTransform" class="btn btn-default" type="button"><span class="fa fa-calculator"></span></button>
-				</span>
-			</div>
-			<table class="table">
-				<tr>
-					<th class="srcTD"><span id="srcCS"></span></th>
-					<th class="toTD"></th>
-					<th class="dstTD"><span id="dstCS">HTRS96</span></th>
-				</tr>
-				<tr>
-					<td><span id="srcCoord1"></span></td>
-					<td><span class="fa fa-arrow-right"></td>
-					<td><span id="dstCoord1">Y = </span></td>
-				</tr>
-				<tr>
-					<td><span id="srcCoord2"></span><br /></td>
-					<td></td>
-					<td><span id="dstCoord2">X = </span><br /></td>
-				</tr>
-			</table>
-		</div>
-		<div id="upload">
-			<br />
-			<span class="btn btn-default btn-file btn-block">
-				Otvori csv ili gpx datoteku <input type="file" id="files" name="files[]" />
-			</span>
-			<a class="btn btn-default btn-block" href="/" id="downloadCSV" role="button"><span class="fa fa-cloud-download"></span> Download CSV</a>
-			<br />
-			<output id="list"></output>
-		</div>
-		<div id="coordSystem" class="desno">
-			<label class="col-sm-3 control-label"><span class="fa fa-arrow-right"></span></label>
-			<div class="col-sm-9 selectContainer">
-				<select id="dstCoord" name="dstCoord" class="form-control">
-					<option value="3765">HTRS96</option>
-					<option value="31275">GK5</option>
-					<option value="31276">GK6</option>
-					<option value="4326">WGS84</option>
-				</select>
-			</div>
-		</div>
-		<p class="sredina"><span id="errorMsg" class="errorMsg">&nbsp;</span></p>
-		<div id="settings">
-			<br />
-			<p><button id="buttonMap" type="button" class="btn btn-success btn-xs"><span class="fa fa-globe"></span></button> Prikaži na karti koordinatu</p>
-			<p><button id="buttonCenter" type="button" class="btn btn-success btn-xs"><span class="fa fa-bullseye"></span></button> Centriraj kartu na koordinatu</p>
-			<br />
-			<p><button id="buttonReset" type="button" class="btn btn-success btn-xs"><span class="fa fa-refresh"></span></button> Resetiraj sve i obriši kartu</p>
-		</div>
-	</div>
-	<div id="sidebarH" class="transparent">
-		<p class="sredina">Preračunavanje GPS koordinata u Gauss–Krüger</p>
-		<br />
-		<p>Podržani koordinatni sustavi za preračunavanje koordinata:
-		<ul>
-			<li>HTRS96/TM</li>
-			<li>Gauss–Krüger 5 zona</li>
-			<li>Gauss–Krüger 6 zona</li>
-			<li>WGS84</li>
-		</ul>
-		</p>
-		<p>Program automatski prepoznaje polazni koordinatni sustav na temelju unešenih koordinata.</p>
-		<p>Unešene koordinate moraju imati decimalnu točku i biti odvojene zarezom.</p>
-		<p>Podržane datoteke s popisom koordinata:
-		<ul>
-			<li>CSV</li>
-			<li>GPX</li>
-		</ul>
-		U CSV datoteteci koordinate moraju imati decimalnu točku i biti odvojene zarezom.</p>
-		<hr/>
-		<p>Sve primjedbe, prijedloge, ispravke i zahtjeve za doradom slati putem <a href="http://svemir.co/about/">kontakt forme</a> ili putem <a href="https://github.com/bacinger/Gauss">GitHub-a</a>.</p>
-		<p>Privatnost: program ne sprema niti šalje unešene koordinate.</p>
-		<p><span id="appversion" class="desno"></span></p>
-	</div>
-	<script>
-	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  <div id="map"></div>
+  <div id="sidebarT" class="transparent">
+    <div id="transformMenu">
+      <button type="button" class="btn btn-default btn-block" id="oneCoordLink"><span class="fa fa-map-marker ikona"></span> Preračunaj jednu koordinatu</button>
+      <button type="button" class="btn btn-default btn-block" id="uploadLink"><span class="fa fa-cloud-upload ikona"></span> Učitaj datoteku s koordinatama</button>
+    </div>
+    <div id="oneCoord">
+      <div class="input-group">
+        <input name="srcCoord" id="srcCoord" type="text" class="form-control col-xs-2" placeholder="Primjer: 45.16,16.45">
+        <span class="input-group-btn">
+          <button id="buttonTransform" class="btn btn-default" type="button"><span class="fa fa-calculator"></span></button>
+        </span>
+      </div>
+      <table class="table">
+        <tr>
+          <th class="srcTD"><span id="srcCS"></span></th>
+          <th class="toTD"></th>
+          <th class="dstTD"><span id="dstCS">HTRS96</span></th>
+        </tr>
+        <tr>
+          <td><span id="srcCoord1"></span></td>
+          <td><span class="fa fa-arrow-right"></td>
+          <td><span id="dstCoord1">Y = </span></td>
+        </tr>
+        <tr>
+          <td><span id="srcCoord2"></span><br /></td>
+          <td></td>
+          <td><span id="dstCoord2">X = </span><br /></td>
+        </tr>
+      </table>
+    </div>
+    <div id="upload">
+      <br />
+      <span class="btn btn-default btn-file btn-block">
+        Otvori csv ili gpx datoteku <input type="file" id="files" name="files[]" />
+      </span>
+      <a class="btn btn-default btn-block" href="/" id="downloadCSV" role="button"><span class="fa fa-cloud-download"></span> Download CSV</a>
+      <br />
+      <output id="list"></output>
+    </div>
+    <div id="coordSystem" class="desno">
+      <label class="col-sm-3 control-label"><span class="fa fa-arrow-right"></span></label>
+      <div class="col-sm-9 selectContainer">
+        <select id="dstCoord" name="dstCoord" class="form-control">
+          <option value="3765">HTRS96</option>
+          <option value="31275">GK5</option>
+          <option value="31276">GK6</option>
+          <option value="4326">WGS84</option>
+        </select>
+      </div>
+    </div>
+    <p class="sredina"><span id="errorMsg" class="errorMsg">&nbsp;</span></p>
+    <div id="settings">
+      <br />
+      <p><button id="buttonMap" type="button" class="btn btn-success btn-xs"><span class="fa fa-globe"></span></button> Prikaži na karti koordinatu</p>
+      <p><button id="buttonCenter" type="button" class="btn btn-success btn-xs"><span class="fa fa-bullseye"></span></button> Centriraj kartu na koordinatu</p>
+      <br />
+      <p><button id="buttonReset" type="button" class="btn btn-success btn-xs"><span class="fa fa-refresh"></span></button> Resetiraj sve i obriši kartu</p>
+    </div>
+  </div>
+  <div id="sidebarH" class="transparent">
+    <p class="sredina">Preračunavanje GPS koordinata u Gauss–Krüger</p>
+    <br />
+    <p>Podržani koordinatni sustavi za preračunavanje koordinata:
+    <ul>
+      <li>HTRS96/TM</li>
+      <li>Gauss–Krüger 5 zona</li>
+      <li>Gauss–Krüger 6 zona</li>
+      <li>WGS84</li>
+    </ul>
+    </p>
+    <p>Program automatski prepoznaje polazni koordinatni sustav na temelju unešenih koordinata.</p>
+    <p>Unešene koordinate moraju imati decimalnu točku i biti odvojene zarezom.</p>
+    <p>Podržane datoteke s popisom koordinata:
+    <ul>
+      <li>CSV</li>
+      <li>GPX</li>
+    </ul>
+    U CSV datoteteci koordinate moraju imati decimalnu točku i biti odvojene zarezom.</p>
+    <hr/>
+    <p>Sve primjedbe, prijedloge, ispravke i zahtjeve za doradom slati putem <a href="http://svemir.co/about/">kontakt forme</a> ili putem <a href="https://github.com/bacinger/Gauss">GitHub-a</a>.</p>
+    <p>Privatnost: program ne sprema niti šalje unešene koordinate.</p>
+    <p><span id="appversion" class="desno"></span></p>
+  </div>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-	  ga('create', 'UA-38998396-1', 'auto');
-	  ga('send', 'pageview');
-	</script> 	
+    ga('create', 'UA-38998396-1', 'auto');
+    ga('send', 'pageview');
+  </script>   
 </body>
 </html>

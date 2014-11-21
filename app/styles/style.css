@@ -1,31 +1,31 @@
 /* CSS Reset */
-html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {margin:0;padding:0;border:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;}
-body {line-height:1.5; padding:0; margin:0;}
-table {border-collapse:separate;border-spacing:0; width:100%;}
-caption, th, td {text-align:left;font-weight:normal;}
-table, td, th {vertical-align:middle;}
-blockquote:before, blockquote:after, q:before, q:after {content:"";}
-blockquote, q {quotes:"" "";}
-a img {border:none;}
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td { margin: 0; padding: 0; border: 0; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline; }
+body { line-height: 1.5; padding: 0; margin: 0;}
+table { border-collapse: separate; border-spacing: 0; width: 100%; }
+caption, th, td { text-align:left; font-weight: normal; }
+table, td, th { vertical-align: middle; }
+blockquote:before, blockquote:after, q:before, q:after { content: ""; }
+blockquote, q { quotes: "" ""; }
+a img { border: none; }
 /* Style */
-body {font-family:"Dosis",Verdana,Arial; color:#ddd; font-size:12pt;}
-html, body, #map {height: 100%; width: 100%;}
-#sidebarH {height: auto; font-size:10pt;}
-#sidebarT {height: auto; padding-bottom: 20px;}
-.transparent {zoom:1; background-color:#000; filter:alpha(opacity=80); opacity:0.8;}
-a {color:#FA8072; text-decoration:none}
-.fakeLink {cursor:pointer; color:#FA8072;}
-.ikona {margin:0 5px;}
+body { font-family: "Dosis",Verdana,Arial; color: #ddd; font-size:12pt; }
+html, body, #map { height: 100%; width: 100%; }
+#sidebarH { height: auto; font-size: 10pt; }
+#sidebarT { height: auto; padding-bottom: 20px; }
+.transparent { zoom: 1; background-color: #000; filter: alpha(opacity=80); opacity: .8;}
+a { color: #FA8072; text-decoration: none }
+.fakeLink { cursor:pointer; color: #FA8072; }
+.ikona { margin: 0 5px; }
 #transformMenu {margin: 40px 0 20px 0;}
-#settings, #oneCoord, #upload, #downloadCSV, #coordSystem {display:none;}
-#settings p {margin:2px;}
-.desno {float:right;}
-.sredina {text-align:center;}
-.errorMsg {color:#f45;}
-.srcTD, .dstTD {width:45%;}
-.toTD {width:10%;}
-.btn-file {position: relative; overflow: hidden;}
-.btn-file input[type=file] {position: absolute; top: 0; right: 0; min-width: 100%; 
+#settings, #oneCoord, #upload, #downloadCSV, #coordSystem { display: none; }
+#settings p { margin: 2px; }
+.desno { float: right; }
+.sredina { text-align: center; }
+.errorMsg { color: #f45; }
+.srcTD, .dstTD { width: 45%; }
+.toTD { width: 10%; }
+.btn-file { position: relative; overflow: hidden; }
+.btn-file input[type="file"] { position: absolute; top: 0; right: 0; min-width: 100%; 
   min-height: 100%; font-size: 100px; text-align: right; filter: alpha(opacity=0);
-  opacity: 0; outline: none; background: white; cursor: inherit; display: block;}
-#list {font-size:10pt; padding-bottom: 10px;}
+  opacity: 0; outline: none; background: white; cursor: inherit; display: block; }
+#list { font-size: 10pt; padding-bottom: 10px; }
