@@ -9,6 +9,24 @@ var showPointOnMap = true;
 var centerMapOnPoint = true;
 var markers = new L.FeatureGroup();
 
+function setProj4Defs() {
+  proj4.defs([
+    [
+      'EPSG:4326',
+      '+title=WGS 84 (long/lat) +proj=longlat +ellps=WGS84 +datum=WGS84 +units=degrees'],
+    [
+      'EPSG:3765',
+      '+title=HTRS96/TM +proj=tmerc +lat_0=0 +lon_0=16.5 +k=0.9999 +x_0=500000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs'],
+    [
+      'EPSG:31275',
+      '+title=Gauss–Krüger 5 zona +proj=tmerc +lat_0=0 +lon_0=15 +k=0.9999 +x_0=5500000 +y_0=0 +ellps=bessel +towgs84=550.499,164.116,475.142,5.80967,2.07902,-11.62386,0.99999445824 +units=m +no_defs'],
+    [
+      'EPSG:31276',
+      '+title=Gauss–Krüger 6 zona +proj=tmerc +lat_0=0 +lon_0=18 +k=0.9999 +x_0=6500000 +y_0=0 +ellps=bessel +towgs84=550.499,164.116,475.142,5.80967,2.07902,-11.62386,0.99999445824 +units=m +no_defs'
+    ]
+  ]);
+}
+
 function doTransformation(srcCoordVal) {
   var srcPosition = {};
   var dstCoordObj = {};
@@ -24,6 +42,7 @@ function doTransformation(srcCoordVal) {
       srcPosition.lng = srcCoordArray[0];
       srcPosition.lat = srcCoordArray[1];
     }
+    setProj4Defs();
     var dstCoordArray = proj4(proj4('EPSG:'+srcEPSG),proj4('EPSG:'+dstEPSG),[srcPosition.lng,srcPosition.lat]);
     var mapCoordArray = proj4(proj4('EPSG:'+srcEPSG),proj4('EPSG:4326'),[srcPosition.lng,srcPosition.lat]);
     dstCoordObj.lng = dstCoordArray[0];
@@ -462,21 +481,7 @@ function pageInit() {
   /* App version */
   $('appversion').update(appVersion);
   /* Projections */
-  proj4.defs([
-    [
-      'EPSG:4326',
-      '+title=WGS 84 (long/lat) +proj=longlat +ellps=WGS84 +datum=WGS84 +units=degrees'],
-    [
-      'EPSG:3765',
-      '+title=HTRS96/TM +proj=tmerc +lat_0=0 +lon_0=16.5 +k=0.9999 +x_0=500000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs'],
-    [
-      'EPSG:31275',
-      '+title=Gauss–Krüger 5 zona +proj=tmerc +lat_0=0 +lon_0=15 +k=0.9999 +x_0=5500000 +y_0=0 +ellps=bessel +towgs84=550.499,164.116,475.142,5.80967,2.07902,-11.62386,0.99999445824 +units=m +no_defs'],
-    [
-      'EPSG:31276',
-      '+title=Gauss–Krüger 6 zona +proj=tmerc +lat_0=0 +lon_0=18 +k=0.9999 +x_0=6500000 +y_0=0 +ellps=bessel +towgs84=550.499,164.116,475.142,5.80967,2.07902,-11.62386,0.99999445824 +units=m +no_defs'
-    ]
-  ]);
+  setProj4Defs(); // proj4.defs parameterers are changing during execution of the code for some strange reason 
   /* Base Layers */
   var mbAttr = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
         '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
