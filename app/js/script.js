@@ -44,6 +44,7 @@ function doTransformation(srcCoordVal) {
     }
     setProj4Defs();
     var dstCoordArray = proj4(proj4('EPSG:'+srcEPSG),proj4('EPSG:'+dstEPSG),[srcPosition.lng,srcPosition.lat]);
+    setProj4Defs();
     var mapCoordArray = proj4(proj4('EPSG:'+srcEPSG),proj4('EPSG:4326'),[srcPosition.lng,srcPosition.lat]);
     dstCoordObj.lng = dstCoordArray[0];
     dstCoordObj.lat = dstCoordArray[1];
@@ -51,7 +52,7 @@ function doTransformation(srcCoordVal) {
       if (dstEPSG === '4326') {
         pointLabel = Math.round(srcPosition.lat*100)/100 + ', ' + Math.round(srcPosition.lng*100)/100 +
           '<br><span class="fa fa-arrow-down"></span><br>' +
-          Math.round(dstCoordObj.lat*100)/100 + ', ' + Math.round(dstCoordObj.lng*100)/100;
+          Math.round(dstCoordObj.lat*1000000)/1000000 + ', ' + Math.round(dstCoordObj.lng*1000000)/1000000;
         coorArray = [dstCoordObj.lat, dstCoordObj.lng];
       }
       else {
@@ -95,8 +96,8 @@ function goTransform() {
       var dstCoordObj = doTransformation(srcCoordVal);
       if (dstCoordObj !== null) {
         if (dstEPSG === '4326') {
-          dstCoor1El.update('φ = ' + Math.round(dstCoordObj.lat*100)/100);
-          dstCoor2El.update('λ = ' + Math.round(dstCoordObj.lng*100)/100); 
+          dstCoor1El.update('φ = ' + Math.round(dstCoordObj.lat*1000000)/1000000);
+          dstCoor2El.update('λ = ' + Math.round(dstCoordObj.lng*1000000)/1000000); 
         }
         else {
           dstCoor1El.update('Y = ' + Math.round(dstCoordObj.lng*100)/100);
