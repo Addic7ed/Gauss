@@ -5,7 +5,7 @@ Web application that can be used for conversion of GPS coordinates from WGS84 to
 
 ## About
 
-The tool is written in a pure JavaScript and is relaying on a two open sources projects: [OpenLayers](http://openlayers.org/) for cartography and [Proj4js](http://trac.osgeo.org/proj4js/) for actual transformation calculations. No server side scripts are used.
+The tool is written in a pure JavaScript and is relaying on a two open sources projects: [Leaflet](http://leafletjs.com/) for cartography and [Proj4js](https://github.com/proj4js/proj4js) for actual transformation calculations. No server side scripts are used.
 
 You can read more about the tool on my [blog](http://svemir.co/categories/tools/).
 
@@ -17,7 +17,7 @@ The usage is simple; you enter two coordinates separated by comma and the tool w
    * Gauss–Krüger zone 5
    * Gauss–Krüger zone 6
 
-After the target coordinate system in which you want your coordinate to be transformed is selected, just press calculator button or hit enter, and your coordinate will be calculated and shown on the map. There are options to automatically zoom to the calculated coordinate, and to turn on or off display of the coordinates on the map all together. Also there is an option to switch base layer from OpenStreetMap to Digital Orthophoto that is provided by Croatian State Geodetic Administration.
+After the target coordinate system in which you want your coordinate to be transformed is selected, just press calculator button or hit enter, and your coordinate will be calculated and shown on the map. There are options to automatically zoom to the calculated coordinate, and to turn on or off display of the coordinates on the map all together. Also there is an option to switch base layer from Mapbox version of the OpenStreetMap to Digital Orthophoto that is provided by Croatian State Geodetic Administration.
 
 ## License
 ```
