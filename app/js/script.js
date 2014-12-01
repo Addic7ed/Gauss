@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 /* Globals */
-var appVersion = 'v1.0.0';
+var appVersion = 'v1.0.1';
 var map, sidebarH, sidebarT;
 var srcEPSG, canPerformTransformation;
 var dstEPSG = '3765';
