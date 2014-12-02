@@ -1,3 +1,4 @@
+/* jshint ignore:start */
 L.Control.EasyButtons = L.Control.extend({
     options: {
         position: 'topleft',
@@ -52,3 +53,4 @@ L.easyButton = function( btnIcon , btnFunction , btnTitle , btnMap ) {
   }
   return newControl;
 };
+/* jshint ignore:end */

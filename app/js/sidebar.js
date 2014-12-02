@@ -1,3 +1,4 @@
+/* jshint ignore:start */
 L.Control.Sidebar = L.Control.extend({
 
     includes: L.Mixin.Events,
@@ -180,3 +181,4 @@ L.Control.Sidebar = L.Control.extend({
 L.control.sidebar = function (placeholder, options) {
     return new L.Control.Sidebar(placeholder, options);
 };
+/* jshint ignore:end */
