@@ -478,6 +478,19 @@ function handleFileSelect(evt) {
   reader.readAsText(file);
 }
 
+var trackOutboundLink = function(url) { // jshint ignore:line
+  if (ga.q) {
+    // Google Analytics is blocked
+    document.location = url;
+  } else {
+    ga('send', 'event', 'outbound', 'click', 'url', {'hitCallback':
+      function () {
+        document.location = url;
+      }
+    });
+  }
+};
+
 function pageInit() {
   /* App version */
   $('appversion').update(appVersion);
