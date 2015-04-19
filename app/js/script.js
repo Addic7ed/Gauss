@@ -483,7 +483,7 @@ var trackOutboundLink = function(url) { // jshint ignore:line
     // Google Analytics is blocked
     document.location = url;
   } else {
-    ga('send', 'event', 'outbound', 'click', 'url', {'hitCallback':
+    ga('send', 'event', 'outbound', 'click', url, {'hitCallback':
       function () {
         document.location = url;
       }
